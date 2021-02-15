@@ -12,9 +12,9 @@ class ProductGenerator {
       _products.add(
         Product(
           faker.guid.guid(),
-          kitchen,
+          dish,
           faker.lorem.sentences(3).join('. '),
-          faker.image.image(width: 300, height: 200, keywords: [kitchen, dish]),
+          faker.image.image(width: 300, height: 200, keywords: [dish]),
           faker.randomGenerator.decimal(),
         ),
       );
