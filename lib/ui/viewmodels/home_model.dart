@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import '../../fake/products.dart';
 
@@ -13,4 +14,8 @@ class HomeModel extends BaseViewModel {
   }
 
   List<Product> get products => _products;
+
+  // void navigateToDetail(BuildContext ctx, Product p) {
+  //   Navigator.of(ctx).pushNamed()
+  // }
 }

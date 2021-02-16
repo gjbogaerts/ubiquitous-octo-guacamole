@@ -7,7 +7,6 @@ class ProductGenerator {
 
   void generateProducts() {
     for (var i = 0; i < 100; i++) {
-      String kitchen = faker.food.cuisine();
       String dish = faker.food.dish();
       _products.add(
         Product(

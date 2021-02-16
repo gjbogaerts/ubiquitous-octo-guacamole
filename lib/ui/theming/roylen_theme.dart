@@ -53,13 +53,14 @@ class RoylenTheme {
           fontSize: 16.0,
           fontFamily: 'Dosis',
           color: CustomColors.appColor,
+          height: 2.0,
         ),
         bodyText1: TextStyle(
-          fontSize: 18.0,
-          fontFamily: 'Dosis',
-          fontWeight: FontWeight.bold,
-          color: CustomColors.appColor,
-        ),
+            fontSize: 18.0,
+            fontFamily: 'Dosis',
+            fontWeight: FontWeight.bold,
+            color: CustomColors.appColor,
+            height: 2.0),
       ),
     );
   }

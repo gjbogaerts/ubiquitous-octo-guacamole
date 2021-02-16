@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+
 import '../viewmodels/home_model.dart';
+import 'product_detail_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = '/home';
@@ -11,7 +13,6 @@ class HomeScreen extends StatelessWidget {
       viewModelBuilder: () => HomeModel(),
       onModelReady: (model) {
         model.init();
-        print(model.products.length);
       },
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
@@ -53,7 +54,9 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     onTap: () {
-                      return;
+                      Navigator.of(context).pushNamed(
+                          ProductDetailScreen.routeName,
+                          arguments: p);
                     },
                   ),
                 ),
