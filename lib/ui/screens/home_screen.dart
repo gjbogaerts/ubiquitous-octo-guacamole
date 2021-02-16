@@ -1,3 +1,4 @@
+import 'package:Roylen/ui/widgets/my_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -18,6 +19,7 @@ class HomeScreen extends StatelessWidget {
         appBar: AppBar(
           title: Text('Welkom bij Roylen'),
         ),
+        drawer: MyDrawer(),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: GridView.builder(
