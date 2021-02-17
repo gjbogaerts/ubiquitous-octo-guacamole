@@ -1,5 +1,7 @@
 import 'package:stacked/stacked.dart';
 import 'package:flutter/material.dart';
+import '../../core/services/auth.dart';
+import '../../core/services/service_locator.dart';
 
 class AuthModel extends BaseViewModel {
   String _username;
@@ -10,13 +12,14 @@ class AuthModel extends BaseViewModel {
   bool _isFormValid;
 
   final _formKey = GlobalKey<FormState>();
+  Auth _auth = locator<Auth>();
 
   set username(String val) => _username = val;
   set email(String val) => _email = val;
   set password(String val) => _password = val;
   set checkPassword(String val) => _checkPassword = val;
 
-  void login() {
+  void login() async {
     if (!_formKey.currentState.validate()) {
       _isFormValid = false;
       notifyListeners();
@@ -27,6 +30,7 @@ class AuthModel extends BaseViewModel {
     }
     if (_isLogin) {
       print('logging in with $_username and $_password');
+      bool result = await _auth.login(_username, _password);
     } else {
       print(
           'registering with $_username, $_email, $_password, $_checkPassword');

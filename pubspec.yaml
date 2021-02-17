@@ -24,7 +24,10 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.0
+  dio: ^3.0.10
   faker: ^1.3.0
+  get_it: ^5.0.6
+  shared_preferences: ^0.5.12+4
   stacked: ^1.7.7
 
 dev_dependencies:

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
+import 'core/services/service_locator.dart';
 import 'ui/screens/auth_screen.dart';
 import 'ui/screens/home_screen.dart';
 import 'ui/screens/product_detail_screen.dart';
 import 'ui/theming/roylen_theme.dart';
 
 void main() {
+  setupServiceLocator();
   runApp(MyApp());
 }
 
