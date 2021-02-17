@@ -1,4 +1,5 @@
 import 'package:Roylen/ui/viewmodels/product_detail_model.dart';
+import 'package:Roylen/ui/widgets/background.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import '../../fake/products.dart';
@@ -15,34 +16,39 @@ class ProductDetailScreen extends StatelessWidget {
           appBar: AppBar(
             title: Text(model.product.title),
           ),
-          body: SingleChildScrollView(
-            padding: EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Image.network(
-                  model.product.image,
-                  fit: BoxFit.cover,
-                  width: MediaQuery.of(context).size.width,
-                ),
-                Text(
-                  model.product.title,
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  model.product.description,
-                  style: Theme.of(context).textTheme.bodyText2,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          body: Stack(
+            children: [
+              Background(),
+              SingleChildScrollView(
+                padding: EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Image.network(
+                      model.product.image,
+                      fit: BoxFit.cover,
+                      width: MediaQuery.of(context).size.width,
+                    ),
                     Text(
-                        'nix ${(model.product.price * 100).toStringAsFixed(2)}'),
-                    Text(model.product.id),
+                      model.product.title,
+                      style: Theme.of(context).textTheme.headline4,
+                    ),
+                    Text(
+                      model.product.description,
+                      style: Theme.of(context).textTheme.bodyText2,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                            'nix ${(model.product.price * 100).toStringAsFixed(2)}'),
+                        Text(model.product.id),
+                      ],
+                    ),
                   ],
                 ),
-              ],
-            ),
+              ),
+            ],
           )),
     );
   }

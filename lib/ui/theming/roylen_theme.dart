@@ -29,14 +29,21 @@ class RoylenTheme {
       cardColor: CustomColors.dialogTextColor,
       hintColor: CustomColors.subduedColor,
       errorColor: CustomColors.errorColor,
-      buttonTheme: ButtonThemeData(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          buttonColor: CustomColors.appColor,
-          textTheme: ButtonTextTheme.accent,
-          colorScheme: ColorScheme.light(secondary: CustomColors.accentColor),
-          minWidth: 100,
-          height: 36),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          primary: CustomColors.appColor,
+          onPrimary: CustomColors.accentColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          minimumSize: Size(150, 50),
+        ),
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          primary: CustomColors.appColor,
+        ),
+      ),
       primaryTextTheme: TextTheme(
         headline6: TextStyle(
             fontSize: 28.0,

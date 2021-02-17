@@ -1,3 +1,71 @@
 import 'package:stacked/stacked.dart';
+import 'package:flutter/material.dart';
 
-class AuthModel extends BaseViewModel {}
+class AuthModel extends BaseViewModel {
+  String _username;
+  String _email;
+  String _password;
+  String _checkPassword;
+  bool _isLogin = true;
+  bool _isFormValid;
+
+  final _formKey = GlobalKey<FormState>();
+
+  set username(String val) => _username = val;
+  set email(String val) => _email = val;
+  set password(String val) => _password = val;
+  set checkPassword(String val) => _checkPassword = val;
+
+  void login() {
+    if (!_formKey.currentState.validate()) {
+      _isFormValid = false;
+      notifyListeners();
+      return;
+    } else {
+      _isFormValid = true;
+      notifyListeners();
+    }
+    if (_isLogin) {
+      print('logging in with $_username and $_password');
+    } else {
+      print(
+          'registering with $_username, $_email, $_password, $_checkPassword');
+    }
+  }
+
+  String validateUser(String val) {
+    if (val.length < 5) {
+      return 'Ten minste vijf lettertekens.';
+    } else {
+      return null;
+    }
+  }
+
+  String validatePassword(String val) {
+    if (val != _password) {
+      return 'Je wachtwoorden zijn niet hetzelfde.';
+    } else {
+      return null;
+    }
+  }
+
+  String validateEmail(String val) {
+    RegExp exp = new RegExp(
+        // r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$",
+        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$",
+        caseSensitive: false);
+    if (!exp.hasMatch(val)) {
+      return 'Dit is geen geldig email-adres.';
+    } else {
+      return null;
+    }
+  }
+
+  bool get isLogin => _isLogin;
+  GlobalKey get formKey => _formKey;
+
+  void switchMode() {
+    _isLogin = !_isLogin;
+    notifyListeners();
+  }
+}
