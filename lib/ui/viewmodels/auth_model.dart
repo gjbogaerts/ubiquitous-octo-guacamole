@@ -7,9 +7,12 @@ class AuthModel extends BaseViewModel {
   String _username;
   String _email;
   String _password;
+  // ignore: unused_field
   String _checkPassword;
   bool _isLogin = true;
   bool _isFormValid;
+  bool _passwordHidden = true;
+  bool _loginResult;
 
   final _formKey = GlobalKey<FormState>();
   Auth _auth = locator<Auth>();
@@ -18,6 +21,10 @@ class AuthModel extends BaseViewModel {
   set email(String val) => _email = val;
   set password(String val) => _password = val;
   set checkPassword(String val) => _checkPassword = val;
+
+  void lostPassword() {
+    _auth.requestPasswordReset(_email);
+  }
 
   void login() async {
     if (!_formKey.currentState.validate()) {
@@ -29,12 +36,14 @@ class AuthModel extends BaseViewModel {
       notifyListeners();
     }
     if (_isLogin) {
-      print('logging in with $_username and $_password');
-      bool result = await _auth.login(_username, _password);
+      // print('logging in with $_username and $_password');
+      _loginResult = await _auth.login(_email, _password);
     } else {
-      print(
-          'registering with $_username, $_email, $_password, $_checkPassword');
+      _loginResult = await _auth.register(_username, _password, _email);
+      // print(
+      // 'registering with $_username, $_email, $_password, $_checkPassword');
     }
+    notifyListeners();
   }
 
   String validateUser(String val) {
@@ -67,9 +76,17 @@ class AuthModel extends BaseViewModel {
 
   bool get isLogin => _isLogin;
   GlobalKey get formKey => _formKey;
+  bool get isFormValid => _isFormValid;
+  bool get loginResult => _loginResult;
+  bool get passwordHidden => _passwordHidden;
 
   void switchMode() {
     _isLogin = !_isLogin;
+    notifyListeners();
+  }
+
+  void togglePasswordHidden() {
+    _passwordHidden = !_passwordHidden;
     notifyListeners();
   }
 }

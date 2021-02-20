@@ -5,9 +5,12 @@ import 'ui/screens/auth_screen.dart';
 import 'ui/screens/home_screen.dart';
 import 'ui/screens/product_detail_screen.dart';
 import 'ui/theming/roylen_theme.dart';
+import 'core/services/parse_service.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   setupServiceLocator();
+  initService();
   runApp(MyApp());
 }
 

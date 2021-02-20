@@ -5,6 +5,6 @@ import './auth_b4a.dart';
 
 GetIt locator = GetIt.instance;
 
-void setupServiceLocator() {
+void setupServiceLocator() async {
   locator.registerLazySingleton<Auth>(() => AuthB4A());
 }

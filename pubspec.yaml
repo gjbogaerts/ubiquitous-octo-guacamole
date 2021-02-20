@@ -27,6 +27,9 @@ dependencies:
   dio: ^3.0.10
   faker: ^1.3.0
   get_it: ^5.0.6
+  graphql: ^4.0.1
+  logger: ^0.9.4
+  parse_server_sdk_flutter: ^2.1.0
   shared_preferences: ^0.5.12+4
   stacked: ^1.7.7
 
