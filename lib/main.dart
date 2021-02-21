@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
+import 'core/services/parse_service.dart';
 import 'core/services/service_locator.dart';
 import 'ui/screens/auth_screen.dart';
 import 'ui/screens/home_screen.dart';
+import 'ui/screens/product_add_screen.dart';
 import 'ui/screens/product_detail_screen.dart';
 import 'ui/theming/roylen_theme.dart';
-import 'core/services/parse_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,10 +21,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Roylen',
       theme: RoylenTheme.getThemeData(),
-      initialRoute: HomeScreen.routeName,
+      initialRoute: ProductAddScreen.routeName,
       routes: {
         HomeScreen.routeName: (context) => HomeScreen(),
         ProductDetailScreen.routeName: (context) => ProductDetailScreen(),
+        ProductAddScreen.routeName: (context) => ProductAddScreen(),
         AuthScreen.routeName: (context) => AuthScreen(),
       },
     );

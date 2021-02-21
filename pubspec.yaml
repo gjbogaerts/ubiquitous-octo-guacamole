@@ -26,6 +26,7 @@ dependencies:
   cupertino_icons: ^1.0.0
   dio: ^3.0.10
   faker: ^1.3.0
+  geolocator: ^6.2.0
   get_it: ^5.0.6
   graphql: ^4.0.1
   logger: ^0.9.4

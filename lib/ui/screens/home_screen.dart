@@ -1,9 +1,11 @@
-import 'package:Roylen/ui/widgets/background.dart';
-import 'package:Roylen/ui/widgets/my_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
+import '../theming/custom_colors.dart';
 import '../viewmodels/home_model.dart';
+import '../widgets/background.dart';
+import '../widgets/my_drawer.dart';
+import 'product_add_screen.dart';
 import 'product_detail_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -19,6 +21,40 @@ class HomeScreen extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
           title: Text('Welkom bij Roylen'),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () {
+                if (model.auth.hasAuth) {
+                  // Navigator.of(context).pop();
+                  Navigator.of(context)
+                      .pushReplacementNamed(ProductAddScreen.routeName);
+                } else {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text('Sorry!'),
+                      content: SizedBox.fromSize(
+                        size: Size(MediaQuery.of(context).size.width * 0.8, 50),
+                        // height: 200,
+                        child: Text(
+                            'Je moet ingelogd zijn om een product te kunnen aanbieden.'),
+                      ),
+                      actions: [
+                        TextButton(
+                          child: Text(
+                            'OK',
+                            style: TextStyle(color: CustomColors.accentColor),
+                          ),
+                          onPressed: () => Navigator.of(context).pop(),
+                        )
+                      ],
+                    ),
+                  );
+                }
+              },
+            )
+          ],
         ),
         drawer: MyDrawer(),
         body: Stack(

@@ -41,6 +41,8 @@ class MyDrawer extends StatelessWidget {
               title: Text('Uitloggen'),
               onTap: () {
                 _auth.logout();
+                Navigator.of(context)
+                    .pushReplacementNamed(HomeScreen.routeName);
               },
             )
         ],
