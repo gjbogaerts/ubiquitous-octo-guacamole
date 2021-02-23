@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 import '../viewmodels/product_form_model.dart';
+import './ad_categories.dart';
 
 class ProductForm extends StatelessWidget {
+  /*
+   * TODO: use multi_image_picker
+   */
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ProductFormModel>.reactive(
@@ -57,6 +61,53 @@ class ProductForm extends StatelessWidget {
                           },
                           onSaved: (val) => model.title = val,
                         ),
+                        TextFormField(
+                          maxLines: 5,
+                          onSaved: (val) => model.description = val,
+                          decoration:
+                              InputDecoration(labelText: 'Beschrijving'),
+                          validator: (val) => model.validator.doValidations([
+                            {
+                              model.validator.notEmpty: [
+                                [val],
+                                {#msg: 'Dit veld is verplicht.'}
+                              ]
+                            }
+                          ]),
+                        ),
+                        TextFormField(
+                          onSaved: (val) => model.virtualPrice = val,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(labelText: 'Aantal nix'),
+                          validator: (val) => model.validator.doValidations([
+                            {
+                              model.validator.intOnly: [
+                                [val],
+                                {#msg: 'Alleen nummers alsjeblieft.'}
+                              ]
+                            },
+                            {
+                              model.validator.notEmpty: [
+                                [val],
+                              ]
+                            }
+                          ]),
+                        ),
+                        DropdownButtonFormField(
+                          items: model.getAgeItems(),
+                          onChanged: (val) => model.ageCategory = val,
+                          decoration: InputDecoration(
+                            labelText: 'Voor welke leeftijdscategorie?',
+                          ),
+                        ),
+                        AdCategories(
+                          model.setMainCategory,
+                          model.setSubCategory,
+                          model.setSubSubCategory,
+                          existingMainCat: model.mainCategory,
+                          existingSubCat: model.subCategory,
+                        ),
+                        SizedBox(height: 20),
                         ElevatedButton(
                           child: Text('Verzenden'),
                           onPressed: model.doSend,

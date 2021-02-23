@@ -2,10 +2,16 @@ import 'package:Roylen/core/services/validator_abstract.dart';
 
 class MyValidator extends ValidatorAbstract {
   List<String> _errors = [];
+
+  /// Performs a series of validations.
+  ///
+  /// Returns a String of errors, separated by a newline character.
+  /// Takes a List of functions to call, mapped with their respective arguments, both positional and named
+  ///
   String doValidations(List<Map<Function, List<dynamic>>> validators) {
     for (var validator in validators) {
       validator.forEach((Function fnc, List args) {
-        Function.apply(fnc, args[0], args[1]);
+        Function.apply(fnc, args[0], args[1] ?? {});
       });
     }
 
@@ -70,6 +76,16 @@ class MyValidator extends ValidatorAbstract {
   @override
   String notEmpty(String val, {msg = 'Dit is een verplicht veld.'}) {
     if (val == null || val.isEmpty) {
+      _errors.add(msg);
+      return msg;
+    }
+    return null;
+  }
+
+  @override
+  String intOnly(String val,
+      {msg = 'Je moet hier een geheel getal invoeren.'}) {
+    if (int.tryParse(val) == null) {
       _errors.add(msg);
       return msg;
     }

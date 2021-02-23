@@ -5,5 +5,6 @@ abstract class ValidatorAbstract {
   String notEmpty(String val, {msg});
   String minVal(double val, double min, {msg});
   String maxVal(double val, double max, {msg});
+  String intOnly(String val, {msg});
   String doValidations(List<Map<Function, List<dynamic>>> validators);
 }
