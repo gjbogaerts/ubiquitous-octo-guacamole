@@ -1,9 +1,10 @@
-import 'package:Roylen/ui/theming/custom_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:stacked/stacked.dart';
 
+import '../theming/custom_colors.dart';
 import '../viewmodels/product_form_model.dart';
-import './ad_categories.dart';
+import 'ad_categories.dart';
 
 class ProductForm extends StatelessWidget {
   /*
@@ -21,6 +22,7 @@ class ProductForm extends StatelessWidget {
                     key: model.formKey,
                     // autovalidateMode: AutovalidateMode.onUserInteraction,
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         model.isFormValid
                             ? SizedBox.shrink()
@@ -78,7 +80,10 @@ class ProductForm extends StatelessWidget {
                         TextFormField(
                           onSaved: (val) => model.virtualPrice = val,
                           keyboardType: TextInputType.number,
-                          decoration: InputDecoration(labelText: 'Aantal nix'),
+                          decoration: InputDecoration(
+                            labelText: 'Aantal nix',
+                            helperText: 'Alleen positieve gehele getallen',
+                          ),
                           validator: (val) => model.validator.doValidations([
                             {
                               model.validator.intOnly: [
@@ -89,10 +94,35 @@ class ProductForm extends StatelessWidget {
                             {
                               model.validator.notEmpty: [
                                 [val],
+                                {#msg: 'Dit veld moet worden ingevuld.'}
+                              ]
+                            },
+                            {
+                              model.validator.minVal: [
+                                [double.tryParse(val) ?? 0.0, 0.0],
+                                {#msg: 'Alleen positieve bedragen alsjeblieft.'}
                               ]
                             }
                           ]),
                         ),
+                        if (model.showPostalCodeField)
+                          TextFormField(
+                              decoration: InputDecoration(
+                                  labelText: 'Postcode',
+                                  helperText:
+                                      'Nodig om mensen in jouw buurt te attenderen'),
+                              validator: (val) =>
+                                  model.validator.doValidations([
+                                    {
+                                      model.validator.notEmpty: [
+                                        [val],
+                                        {
+                                          #msg:
+                                              'Postcode is verplicht als je je locatie niet wilt delen'
+                                        }
+                                      ]
+                                    }
+                                  ])),
                         DropdownButtonFormField(
                           items: model.getAgeItems(),
                           onChanged: (val) => model.ageCategory = val,
@@ -107,10 +137,39 @@ class ProductForm extends StatelessWidget {
                           existingMainCat: model.mainCategory,
                           existingSubCat: model.subCategory,
                         ),
+                        TextButton.icon(
+                          icon: Icon(Icons.camera),
+                          label: Text('Maak of kies een foto'),
+                          onPressed: model.pickImage,
+                        ),
+                        if (model.images != null && model.images.length > 0)
+                          GridView.count(
+                            shrinkWrap: true,
+                            crossAxisCount: 3,
+                            crossAxisSpacing: 8,
+                            mainAxisSpacing: 8,
+                            children:
+                                List.generate(model.images.length, (index) {
+                              Asset asset = model.images[index];
+                              return AssetThumb(
+                                asset: asset,
+                                width: 100,
+                                height: (100 /
+                                        asset.originalWidth *
+                                        asset.originalHeight)
+                                    .round(),
+                              );
+                            }),
+                          ),
                         SizedBox(height: 20),
-                        ElevatedButton(
-                          child: Text('Verzenden'),
-                          onPressed: model.doSend,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            ElevatedButton(
+                              child: Text('Verzenden'),
+                              onPressed: model.doSend,
+                            ),
+                          ],
                         )
                       ],
                     ),

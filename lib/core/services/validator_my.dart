@@ -66,6 +66,7 @@ class MyValidator extends ValidatorAbstract {
   @override
   String minVal(double val, double min,
       {msg = 'Je hebt een te klein getal ingevuld'}) {
+    // print('minVal | $val - $min');
     if (val < min) {
       _errors.add(msg);
       return msg;

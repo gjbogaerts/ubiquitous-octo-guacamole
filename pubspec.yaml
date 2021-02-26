@@ -26,6 +26,8 @@ dependencies:
   cupertino_icons: ^1.0.0
   dio: ^3.0.10
   faker: ^1.3.0
+  flutter_absolute_path: ^1.0.6
+  flutter_image_compress: ^0.7.0
   geolocator: ^6.2.0
   get_it: ^5.0.6
   graphql: ^4.0.1

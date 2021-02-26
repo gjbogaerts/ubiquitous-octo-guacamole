@@ -1,17 +1,23 @@
-import '../../core/services/validator_abstract.dart';
 import 'package:flutter/material.dart';
+import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:stacked/stacked.dart';
+import 'package:geolocator/geolocator.dart';
 
+import '../../core/models/cats.dart';
+import '../../core/models/product.dart';
 import '../../core/services/auth.dart';
 import '../../core/services/location.dart';
 import '../../core/services/my_logger.dart';
+import '../../core/services/product_service.dart';
 import '../../core/services/service_locator.dart';
-import '../../core/models/cats.dart';
+import '../../core/services/validator_abstract.dart';
+import '../theming/custom_colors.dart';
 
 class ProductFormModel extends BaseViewModel {
   final Auth _auth = locator<Auth>();
-  final Location _location = locator<Location>();
+  final Location _geoLocator = locator<Location>();
   final ValidatorAbstract _validator = locator<ValidatorAbstract>();
+  final ProductService _productService = locator<ProductService>();
   final _formKey = GlobalKey<FormState>();
   final _logger = getLogger('ProductFormModel');
   // final _location = Geolocation.
@@ -33,6 +39,7 @@ class ProductFormModel extends BaseViewModel {
   double _latitude;
   double _longitude;
   String postalCode;
+  List<Asset> _images;
 
   bool get isFormValid => _isFormValid;
   String get errorString => _errorString;
@@ -46,18 +53,42 @@ class ProductFormModel extends BaseViewModel {
   }
 
   void initialize() async {
+    _logger.d('before trying');
     try {
-      final location = await _location.determineLocation();
-      _logger.d('initializing model | $location');
-      _longitude = location.longitude;
-      _latitude = location.latitude;
+      final Position position = await _geoLocator.determineLocation();
+      _logger.d('initializing model | $position');
+      _longitude = position.longitude;
+      _latitude = position.latitude;
     } catch (err) {
+      _logger.d('error: ${err.toString()}');
       _showPostalCodeField = true;
       notifyListeners();
     }
   }
 
-  void doSend() {
+  Future<void> pickImage() async {
+    _logger.d('pickImage | ');
+    List<Asset> resultList = [];
+
+    try {
+      resultList = await MultiImagePicker.pickImages(
+          maxImages: 5,
+          enableCamera: true,
+          cupertinoOptions: CupertinoOptions(
+            backgroundColor: CustomColors.appColor.toString(),
+          ),
+          materialOptions: MaterialOptions());
+      _images = resultList;
+      notifyListeners();
+      _logger.d(_images);
+    } catch (err) {
+      _logger.d(err);
+    }
+  }
+
+  List<Asset> get images => _images;
+
+  Future<bool> doSend() async {
     _logger.d('doSend | called');
     if (!_formKey.currentState.validate()) {
       _logger.d('doSend: $title invalid');
@@ -65,16 +96,31 @@ class ProductFormModel extends BaseViewModel {
       _errorString =
           'Je formulier is niet juist ingevuld. Check de fouten en probeer het opnieuw.';
       notifyListeners();
-      return;
+      return false;
     } else {
       _errorString = '';
       _isFormValid = true;
       notifyListeners();
     }
     _formKey.currentState.save();
-
-    _logger.d('doSend: $title valid');
-    notifyListeners();
+    Product p = await _productService.save({
+      'title': title,
+      'description': description,
+      'virtualPrice': _virtualPrice,
+      'longitude': _longitude,
+      'latitude': _latitude,
+      'ageCategory': ageCategory,
+      'mainCategory': mainCategory,
+      'subCategory': subCategory,
+      'subSubCategory': subSubCategory,
+      'postalCode': postalCode ?? '',
+      'images': _images
+    });
+    if (p != null) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   List getAgeItems() {
@@ -141,4 +187,6 @@ class ProductFormModel extends BaseViewModel {
             ))
         .toList();
   }
+
+  bool get showPostalCodeField => _showPostalCodeField;
 }

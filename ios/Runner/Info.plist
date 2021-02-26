@@ -45,6 +45,9 @@
 <string>This app needs access to location when open.</string>
 <key>NSLocationAlwaysUsageDescription</key>
 <string>This app needs access to location when in the background.</string>
-
+<key>NSPhotoLibraryUsageDescription</key>
+<string>Roylen wil graag toegang tot je fotobestanden.</string>
+<key>NSCameraUsageDescription</key>
+<string>Roylen wil graag toestemming om je camera te gebruiken.</string>
 </dict>
 </plist>

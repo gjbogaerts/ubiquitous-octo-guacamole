@@ -1,5 +1,6 @@
-import 'package:Roylen/core/services/location.dart';
 import 'package:geolocator/geolocator.dart';
+
+import 'location.dart';
 
 class MyGeoLocatorLocation extends Location {
   Future<Position> determineLocation() async {
@@ -26,6 +27,7 @@ class MyGeoLocatorLocation extends Location {
             'Je hebt geen toestemming gegeven om je positie te bepalen. Je moet je postcode invullen. Anders kun je geen advertenties plaatsen.');
       }
     }
-    return await Geolocator.getCurrentPosition();
+    var p = await Geolocator.getCurrentPosition();
+    return p;
   }
 }

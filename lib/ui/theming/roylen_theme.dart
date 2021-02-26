@@ -6,11 +6,12 @@ class RoylenTheme {
     return ThemeData(
       visualDensity: VisualDensity.adaptivePlatformDensity,
       inputDecorationTheme: InputDecorationTheme(
-          labelStyle: TextStyle(
-        color: CustomColors.appColor,
-        fontFamily: 'Dosis',
-        fontSize: 16,
-      )),
+        labelStyle: TextStyle(
+          color: CustomColors.appColor,
+          fontFamily: 'Dosis',
+          fontSize: 16,
+        ),
+      ),
       dialogTheme: DialogTheme(
           backgroundColor: CustomColors.appColor,
           contentTextStyle: TextStyle(
