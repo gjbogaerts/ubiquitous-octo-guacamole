@@ -1,5 +1,7 @@
-import 'package:Roylen/ui/widgets/my_drawer.dart';
 import 'package:flutter/material.dart';
+
+import '../widgets/background.dart';
+import '../widgets/my_drawer.dart';
 import '../widgets/product_form.dart';
 
 class ProductAddScreen extends StatelessWidget {
@@ -11,9 +13,14 @@ class ProductAddScreen extends StatelessWidget {
           title: Text('Nieuw product'),
         ),
         drawer: MyDrawer(),
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ProductForm(),
+        body: Stack(
+          children: [
+            Background(),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ProductForm(),
+            ),
+          ],
         ));
   }
 }

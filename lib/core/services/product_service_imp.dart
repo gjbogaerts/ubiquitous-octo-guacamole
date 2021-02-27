@@ -1,14 +1,17 @@
 import 'dart:io';
 
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
+
+import '../exceptions/parse_object_exception.dart';
 import '../models/product.dart';
+import 'image_handler.dart';
 import 'image_service.dart';
 import 'my_logger.dart';
 import 'product_service.dart';
 import 'service_locator.dart';
-import 'image_handler.dart';
 
 class ProductServiceImp extends ProductService {
+  // ignore: unused_field
   var _logger = getLogger('ProductServiceImp');
   var _imageService = locator<ImageService>();
   var _imageHandler = ImageHandler();
@@ -26,31 +29,30 @@ class ProductServiceImp extends ProductService {
 
   @override
   Future<Product> save(Map<String, dynamic> vals) async {
-    _logger.d('Save | $vals');
-    var product = Product();
-    product.set('title', vals['title']);
-    product.set('description', vals['description']);
-    product.set('virtualPrice', vals['virtualPrice']);
-    product.set('mainCategory', vals['mainCategory']);
-    product.set('subCategory', vals['subCategory']);
-    product.set('subSubCategory', vals['subSubCategory']);
-    ParseGeoPoint loc =
-        ParseGeoPoint(latitude: vals['latitude'], longitude: vals['longitude']);
-    product.set('location', loc);
-    product.set('postalCode', vals['postalCode']);
+    try {
+      var product = Product();
+      product.set('creator', vals['creator']);
+      product.set('title', vals['title']);
+      product.set('description', vals['description']);
+      product.set('virtualPrice', vals['virtualPrice']);
+      product.set('mainCategory', vals['mainCategory']);
+      product.set('subCategory', vals['subCategory']);
+      product.set('subSubCategory', vals['subSubCategory']);
+      ParseGeoPoint loc = ParseGeoPoint(
+          latitude: vals['latitude'] ?? 0.0,
+          longitude: vals['longitude'] ?? 0.0);
+      product.set('location', loc);
+      product.set('postalCode', vals['postalCode']);
 
-    List<File> images =
-        await _imageHandler.convertListAssetToListFile(vals['images']);
-    List<ParseFile> uploads = _imageService.convertToParseFiles(images);
-    product.set('images', uploads);
-
-    ParseResponse response = await product.save();
-    _logger.d(response.statusCode);
-    _logger.d(response.result);
-    _logger.d(response.results);
-    _logger.d(response.error);
-
-    return product;
+      List<File> images =
+          await _imageHandler.convertListAssetToListFile(vals['images']);
+      List<ParseFile> uploads = _imageService.convertToParseFiles(images);
+      product.set('images', uploads);
+      await product.save();
+      return product;
+    } catch (err) {
+      throw ParseObjectException(err);
+    }
   }
 
   @override
@@ -62,6 +64,12 @@ class ProductServiceImp extends ProductService {
   @override
   Future<Product> update(Map<String, dynamic> p) {
     // TODO: implement update
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<Product>> get(int startIndex, int page) {
+    // TODO: implement get
     throw UnimplementedError();
   }
 }

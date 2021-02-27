@@ -53,10 +53,9 @@ class ProductFormModel extends BaseViewModel {
   }
 
   void initialize() async {
-    _logger.d('before trying');
     try {
       final Position position = await _geoLocator.determineLocation();
-      _logger.d('initializing model | $position');
+      // _logger.d('initializing model | $position');
       _longitude = position.longitude;
       _latitude = position.latitude;
     } catch (err) {
@@ -67,7 +66,7 @@ class ProductFormModel extends BaseViewModel {
   }
 
   Future<void> pickImage() async {
-    _logger.d('pickImage | ');
+    // _logger.d('pickImage | ');
     List<Asset> resultList = [];
 
     try {
@@ -80,7 +79,7 @@ class ProductFormModel extends BaseViewModel {
           materialOptions: MaterialOptions());
       _images = resultList;
       notifyListeners();
-      _logger.d(_images);
+      // _logger.d(_images);
     } catch (err) {
       _logger.d(err);
     }
@@ -89,9 +88,8 @@ class ProductFormModel extends BaseViewModel {
   List<Asset> get images => _images;
 
   Future<bool> doSend() async {
-    _logger.d('doSend | called');
     if (!_formKey.currentState.validate()) {
-      _logger.d('doSend: $title invalid');
+      // _logger.d('doSend: $title invalid');
       _isFormValid = false;
       _errorString =
           'Je formulier is niet juist ingevuld. Check de fouten en probeer het opnieuw.';
@@ -104,6 +102,7 @@ class ProductFormModel extends BaseViewModel {
     }
     _formKey.currentState.save();
     Product p = await _productService.save({
+      'creator': _auth.user,
       'title': title,
       'description': description,
       'virtualPrice': _virtualPrice,
@@ -116,6 +115,8 @@ class ProductFormModel extends BaseViewModel {
       'postalCode': postalCode ?? '',
       'images': _images
     });
+
+    notifyListeners();
     if (p != null) {
       return true;
     } else {

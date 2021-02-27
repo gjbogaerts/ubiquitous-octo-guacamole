@@ -34,6 +34,7 @@ dependencies:
   logger: ^0.9.4
   multi_image_picker: ^4.7.15
   parse_server_sdk_flutter: ^2.1.0
+  path_provider: ^2.0.0
   shared_preferences: ^0.5.12+4
   stacked: ^1.7.7
 

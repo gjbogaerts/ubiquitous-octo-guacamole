@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Roylen',
       theme: RoylenTheme.getThemeData(),
-      initialRoute: ProductAddScreen.routeName,
+      initialRoute: HomeScreen.routeName,
       routes: {
         HomeScreen.routeName: (context) => HomeScreen(),
         ProductDetailScreen.routeName: (context) => ProductDetailScreen(),

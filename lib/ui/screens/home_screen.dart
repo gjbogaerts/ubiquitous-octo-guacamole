@@ -1,3 +1,4 @@
+import 'package:Roylen/ui/screens/auth_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -43,10 +44,21 @@ class HomeScreen extends StatelessWidget {
                       actions: [
                         TextButton(
                           child: Text(
-                            'OK',
+                            'Laat maar zitten',
+                            textAlign: TextAlign.start,
                             style: TextStyle(color: CustomColors.accentColor),
                           ),
                           onPressed: () => Navigator.of(context).pop(),
+                        ),
+                        TextButton(
+                          child: Text(
+                            'Inloggen',
+                            style: TextStyle(color: CustomColors.accentColor),
+                          ),
+                          onPressed: () {
+                            Navigator.of(context)
+                                .pushReplacementNamed(AuthScreen.routeName);
+                          },
                         )
                       ],
                     ),

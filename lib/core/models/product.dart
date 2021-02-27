@@ -1,4 +1,5 @@
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
+import './user.dart';
 
 class Product extends ParseObject implements ParseCloneable {
   Product() : super(_keyTableName);
@@ -9,6 +10,7 @@ class Product extends ParseObject implements ParseCloneable {
   clone(Map map) => Product.clone()..fromJson(map);
 
   static const String _keyTableName = 'Product';
+  static const String _keyCreator = 'creator';
   static const String _keyTitle = 'title';
   static const String _keyDescription = 'description';
   static const String _keyVirtualPrice = 'virtualPrice';
@@ -19,6 +21,8 @@ class Product extends ParseObject implements ParseCloneable {
   static const String _keyPostalCode = 'postalCode';
   static const String _keyImages = 'images';
 
+  User get creator => get<User>(_keyCreator);
+  set creator(User u) => set<User>(_keyCreator, u);
   String get title => get<String>(_keyTitle);
   set title(String title) => set<String>(_keyTitle, title);
   String get description => get<String>(_keyDescription);
