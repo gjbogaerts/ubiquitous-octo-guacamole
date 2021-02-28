@@ -6,5 +6,5 @@ abstract class ProductService {
   Future<Product> delete(String id);
   Future<Product> readOne(String id);
   Future<List<Product>> search(Map<String, dynamic> terms);
-  Future<List<Product>> get(int startIndex, int page);
+  Future<List<Product>> getAllProducts(int startIndex, int page);
 }

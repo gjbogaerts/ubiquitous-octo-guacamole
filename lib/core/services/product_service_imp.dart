@@ -68,8 +68,16 @@ class ProductServiceImp extends ProductService {
   }
 
   @override
-  Future<List<Product>> get(int startIndex, int page) {
-    // TODO: implement get
-    throw UnimplementedError();
+  Future<List<Product>> getAllProducts(int startIndex, int page) async {
+    // ParseResponse p = await Parse().healthCheck();
+    // _logger.d(p.success);
+    _logger.d('getAll | $startIndex, $page');
+    // final Product p = Product();
+    final ParseResponse response = await Product().getAll();
+    return response.results;
+    // // final ParseResponse response = await p.getAll();
+    // var response = await ParseObject('Product', debug: true).getAll();
+    // _logger.d(response.results);
+    // return response.results;
   }
 }
