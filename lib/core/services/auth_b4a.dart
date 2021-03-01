@@ -1,7 +1,8 @@
 import 'package:Roylen/core/services/my_logger.dart';
 import 'package:logger/logger.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 import '../models/user.dart';
 import 'auth.dart';
 
@@ -10,13 +11,18 @@ class AuthB4A extends Auth {
   // ignore: unused_field
   Logger _log = getLogger(' AuthB4A');
 
+  AuthB4A() {
+    tryAutoLogin();
+  }
+
   @override
   Future<bool> login(String username, String password) async {
     try {
-      User user = User(username, password, username);
+      var user = ParseUser.createUser(username, password, username);
       final response = await user.login();
       if (response.success) {
-        _user = response.result;
+        var result = response.result;
+        _user = User.fromJson(result.toString());
         return true;
       } else {
         return false;
@@ -76,4 +82,21 @@ class AuthB4A extends Auth {
 
   User get user => _user;
   bool get hasAuth => _user != null;
+
+  Future<void> tryAutoLogin() async {
+    _log.d('tryAutoLogin');
+    try {
+      var prefs = await SharedPreferences.getInstance();
+      String userString = prefs.get('flutter_parse_sdk_user');
+      _log.d(json.decode(userString));
+      _user = User.fromJson(userString);
+      _log.d(_user);
+      // var u = User(null, null, null).clone(json.decode(userString));
+      // _log.d(u);
+      // _user = u;
+    } catch (err) {
+      _log.d('De fout is: $err');
+      // no action necessary...
+    }
+  }
 }

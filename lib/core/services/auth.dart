@@ -7,4 +7,5 @@ abstract class Auth {
   Future<bool> requestPasswordReset(String email);
   bool hasAuth;
   User user;
+  Future<void> tryAutoLogin();
 }

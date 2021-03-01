@@ -1,27 +1,72 @@
-import 'dart:core';
-import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
+import 'dart:convert';
 
-class User extends ParseUser implements ParseCloneable {
-  User(String username, String password, String emailAddress)
-      : super(username, password, emailAddress);
+class User {
+  String objectId;
+  String createdAt;
+  String updatedAt;
+  String username;
+  String email;
+  int nix;
+  String profilePicUri;
+  String displayName;
+  bool emailVerified;
+  String sessionToken;
+  String password;
 
-  User.clone() : this(null, null, null);
+  User(
+    this.username,
+    this.password,
+    this.email, {
+    this.objectId,
+    this.createdAt,
+    this.updatedAt,
+    this.displayName,
+    this.nix,
+    this.profilePicUri,
+    this.emailVerified,
+    this.sessionToken,
+  });
 
   @override
-  User clone(Map<String, dynamic> map) => User.clone()..fromJson(map);
+  String toString() {
+    return 'User(objectId: $objectId, createdAt: $createdAt, updatedAt: $updatedAt, username: $username, email: $email, nix: $nix, profilePicUri: $profilePicUri, displayName: $displayName, emailVerified: $emailVerified, sessionToken: $sessionToken, password: $password)';
+  }
 
-  static const String keyNix = 'nix';
-  static const String keyDisplayName = 'displayName';
-  static const String keyProfilePicUri = 'profilePicUri';
+  Map<String, dynamic> toMap() {
+    return {
+      'objectId': objectId,
+      'createdAt': createdAt,
+      'updatedAt': updatedAt,
+      'username': username,
+      'email': email,
+      'nix': nix,
+      'profilePicUri': profilePicUri,
+      'displayName': displayName,
+      'emailVerified': emailVerified,
+      'sessionToken': sessionToken,
+      'password': password,
+    };
+  }
 
-  num get nix => get<num>(keyNix);
-  set nix(num nix) => set<num>(keyNix, nix);
+  factory User.fromMap(Map<String, dynamic> map) {
+    if (map == null) return null;
 
-  String get displayName => get<String>(keyDisplayName);
-  set displayName(String displayName) =>
-      set<String>(keyDisplayName, displayName);
+    return User(
+      map['username'],
+      map['password'],
+      map['email'],
+      objectId: map['objectId'],
+      createdAt: map['createdAt'],
+      updatedAt: map['updatedAt'],
+      nix: map['nix'],
+      profilePicUri: map['profilePicUri'],
+      displayName: map['displayName'],
+      emailVerified: map['emailVerified'],
+      sessionToken: map['sessionToken'],
+    );
+  }
 
-  String get profilePicUri => get<String>(keyProfilePicUri);
-  set profilePicUri(String profilePicUri) =>
-      set<String>(keyProfilePicUri, profilePicUri);
+  String toJson() => json.encode(toMap());
+
+  factory User.fromJson(String source) => User.fromMap(json.decode(source));
 }

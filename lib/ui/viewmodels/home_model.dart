@@ -12,7 +12,6 @@ class HomeModel extends BaseViewModel {
   void init() {
     pg.generateProducts();
     _products = pg.products;
-
     notifyListeners();
   }
 

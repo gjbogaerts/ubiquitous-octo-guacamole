@@ -14,6 +14,10 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Scaffold.of(context).showBottomSheet(
+    //   (ctx) => Text('bottom sheet'),
+    // );
+
     return ViewModelBuilder<HomeModel>.reactive(
       viewModelBuilder: () => HomeModel(),
       onModelReady: (model) {
