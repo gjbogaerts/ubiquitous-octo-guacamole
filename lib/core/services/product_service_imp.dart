@@ -69,9 +69,10 @@ class ProductServiceImp extends ProductService {
 
   @override
   Future<List<Product>> getAllProducts(int startIndex, int page) async {
-    final ParseResponse response = await Product().getAll();
+    QueryBuilder<Product> query = QueryBuilder<Product>(Product())
+      ..includeObject(['creator']);
+    final ParseResponse response = await query.query();
     List<Product> products = response.results.cast<Product>();
-    _logger.d(products);
     return products;
   }
 }
