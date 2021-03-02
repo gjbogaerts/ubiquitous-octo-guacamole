@@ -1,4 +1,4 @@
-import '../../fake/products.dart';
+import '../../core/models/product.dart';
 import 'package:stacked/stacked.dart';
 
 class ProductDetailModel extends BaseViewModel {

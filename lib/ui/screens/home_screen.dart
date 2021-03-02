@@ -98,17 +98,17 @@ class HomeScreen extends StatelessWidget {
                       ),
                       footer: GridTileBar(
                         title: Text(
-                          p.price.toStringAsFixed(2),
+                          p.virtualPrice.toStringAsFixed(2),
                         ),
                         backgroundColor: Theme.of(context).primaryColor,
                       ),
                       child: GestureDetector(
                         child: Hero(
-                          tag: p.id,
+                          tag: p.objectId,
                           child: FadeInImage(
                             placeholder:
                                 AssetImage('assets/images/image9.jpeg'),
-                            image: NetworkImage(p.image),
+                            image: NetworkImage(p.images[0]['url']),
                             fit: BoxFit.cover,
                           ),
                         ),

@@ -11,7 +11,7 @@ import 'ui/theming/roylen_theme.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  initService();
+  await initService();
   setupServiceLocator();
   runApp(MyApp());
 }
