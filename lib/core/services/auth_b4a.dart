@@ -1,6 +1,7 @@
-import 'package:Roylen/core/services/my_logger.dart';
+import 'my_logger.dart';
 import 'package:logger/logger.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
+
 import '../models/user.dart';
 import 'auth.dart';
 

@@ -1,9 +1,10 @@
-import 'package:Roylen/ui/screens/home_screen.dart';
-import 'package:Roylen/ui/widgets/background.dart';
-import 'package:Roylen/ui/widgets/my_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+
 import '../viewmodels/auth_model.dart';
+import '../widgets/background.dart';
+import '../widgets/my_drawer.dart';
+import 'home_screen.dart';
 
 class AuthScreen extends StatelessWidget {
   static const routeName = '/auth';
@@ -33,7 +34,7 @@ class AuthScreen extends StatelessWidget {
                 ),
               ),
               actions: [
-                FlatButton(
+                TextButton(
                   child: Text('OK'),
                   onPressed: () => Navigator.of(context).pop(),
                 )

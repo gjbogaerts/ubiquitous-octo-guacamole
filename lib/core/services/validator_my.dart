@@ -1,4 +1,4 @@
-import 'package:Roylen/core/services/validator_abstract.dart';
+import 'validator_abstract.dart';
 
 class MyValidator extends ValidatorAbstract {
   List<String> _errors = [];

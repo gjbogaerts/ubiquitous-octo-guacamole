@@ -1,17 +1,14 @@
-import 'package:Roylen/ui/screens/auth_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:stacked/stacked.dart';
 
+import '../screens/auth_screen.dart';
+import '../screens/home_screen.dart';
 import '../theming/custom_colors.dart';
 import '../viewmodels/product_form_model.dart';
 import 'ad_categories.dart';
-import '../screens/home_screen.dart';
 
 class ProductForm extends StatelessWidget {
-  /*
-   * TODO: use multi_image_picker
-   */
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ProductFormModel>.reactive(

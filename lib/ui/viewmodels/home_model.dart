@@ -1,9 +1,10 @@
-import 'package:Roylen/core/services/product_service.dart';
 import 'package:stacked/stacked.dart';
+
+import '../../core/models/product.dart';
+import '../../core/services/auth.dart';
+import '../../core/services/product_service.dart';
 // import '../../fake/products.dart';
 import '../../core/services/service_locator.dart';
-import '../../core/services/auth.dart';
-import '../../core/models/product.dart';
 
 class HomeModel extends BaseViewModel {
   // var pg = ProductGenerator();

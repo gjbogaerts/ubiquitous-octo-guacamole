@@ -1,7 +1,8 @@
-import 'package:Roylen/ui/viewmodels/product_detail_model.dart';
-import 'package:Roylen/ui/widgets/background.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+
+import '../viewmodels/product_detail_model.dart';
+import '../widgets/background.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   static const routeName = '/product-detail';

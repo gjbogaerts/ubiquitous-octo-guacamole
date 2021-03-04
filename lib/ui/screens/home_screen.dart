@@ -1,4 +1,3 @@
-import 'package:Roylen/ui/screens/auth_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -6,6 +5,7 @@ import '../theming/custom_colors.dart';
 import '../viewmodels/home_model.dart';
 import '../widgets/background.dart';
 import '../widgets/my_drawer.dart';
+import 'auth_screen.dart';
 import 'product_add_screen.dart';
 import 'product_detail_screen.dart';
 
@@ -14,10 +14,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Scaffold.of(context).showBottomSheet(
-    //   (ctx) => Text('bottom sheet'),
-    // );
-
     return ViewModelBuilder<HomeModel>.reactive(
       viewModelBuilder: () => HomeModel(),
       onModelReady: (model) {
