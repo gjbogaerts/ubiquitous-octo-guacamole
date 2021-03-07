@@ -15,6 +15,8 @@ class ProductServiceImp extends ProductService {
   var _logger = getLogger('ProductServiceImp');
   var _imageService = locator<ImageService>();
   var _imageHandler = ImageHandler();
+  int _amountToSkip = 0;
+  int _limit = 50;
   @override
   Future<Product> delete(String id) {
     // TODO: implement delete
@@ -68,11 +70,19 @@ class ProductServiceImp extends ProductService {
   }
 
   @override
-  Future<List<Product>> getAllProducts(int startIndex, int page) async {
+  Future<List<Product>> getAllProducts(int page) async {
+    _amountToSkip = (page) * _limit;
     QueryBuilder<Product> query = QueryBuilder<Product>(Product())
-      ..includeObject(['creator']);
+      ..includeObject(['creator'])
+      ..setAmountToSkip(_amountToSkip)
+      ..setLimit(_limit)
+      ..orderByDescending('createdAt');
     final ParseResponse response = await query.query();
-    List<Product> products = response.results.cast<Product>();
-    return products;
+    if (response.count > 0) {
+      List<Product> products = response.results.cast<Product>();
+      return products;
+    } else {
+      return [];
+    }
   }
 }

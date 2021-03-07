@@ -74,49 +74,71 @@ class HomeScreen extends StatelessWidget {
             Background(),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 5,
-                  crossAxisSpacing: 5,
-                  childAspectRatio: 2 / 3,
-                ),
-                itemCount: model.products.length,
-                itemBuilder: (BuildContext ctx, int idx) {
-                  var p = model.products[idx];
-                  return ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: GridTile(
-                      header: GridTileBar(
-                        title: Text(p.title),
-                        subtitle: Text(p.description),
-                        backgroundColor: Theme.of(context).primaryColor,
+              child: Column(
+                children: [
+                  Expanded(
+                    child: GridView.builder(
+                      shrinkWrap: true,
+                      controller: model.controller,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 5,
+                        crossAxisSpacing: 5,
+                        childAspectRatio: 2 / 3,
                       ),
-                      footer: GridTileBar(
-                        title: Text(
-                          p.virtualPrice.toStringAsFixed(2),
-                        ),
-                        backgroundColor: Theme.of(context).primaryColor,
-                      ),
-                      child: GestureDetector(
-                        child: Hero(
-                          tag: p.objectId,
-                          child: FadeInImage(
-                            placeholder:
-                                AssetImage('assets/images/image9.jpeg'),
-                            image: NetworkImage(p.images[0]['url']),
-                            fit: BoxFit.cover,
+                      itemCount: model.products.length,
+                      itemBuilder: (BuildContext ctx, int idx) {
+                        var p = model.products[idx];
+                        return ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: GridTile(
+                            header: GridTileBar(
+                              title: Text(p.title),
+                              subtitle: Text(p.description),
+                              backgroundColor: Theme.of(context).primaryColor,
+                            ),
+                            footer: GridTileBar(
+                              title: Text(
+                                p.virtualPrice.toStringAsFixed(2),
+                              ),
+                              backgroundColor: Theme.of(context).primaryColor,
+                            ),
+                            child: GestureDetector(
+                              child: Hero(
+                                tag: p.objectId,
+                                child: FadeInImage(
+                                  placeholder:
+                                      AssetImage('assets/images/image9.jpeg'),
+                                  image: NetworkImage(p.images[0]['url']),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              onTap: () {
+                                Navigator.of(context).pushNamed(
+                                    ProductDetailScreen.routeName,
+                                    arguments: p);
+                              },
+                            ),
                           ),
-                        ),
-                        onTap: () {
-                          Navigator.of(context).pushNamed(
-                              ProductDetailScreen.routeName,
-                              arguments: p);
-                        },
+                        );
+                      },
+                    ),
+                  ),
+                  if (model.isLoading)
+                    SizedBox(
+                      height: 100,
+                      child: Center(
+                        child: CircularProgressIndicator(),
                       ),
                     ),
-                  );
-                },
+                  if (model.endIsReached)
+                    SizedBox(
+                      height: 100,
+                      child: Center(
+                        child: Text('Geen producten meer'),
+                      ),
+                    ),
+                ],
               ),
             ),
           ],
