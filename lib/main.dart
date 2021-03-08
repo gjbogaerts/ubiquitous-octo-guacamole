@@ -6,6 +6,7 @@ import 'ui/screens/auth_screen.dart';
 import 'ui/screens/home_screen.dart';
 import 'ui/screens/product_add_screen.dart';
 import 'ui/screens/product_detail_screen.dart';
+import 'ui/screens/product_contact_form.dart';
 import 'ui/theming/roylen_theme.dart';
 
 void main() async {
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         ProductDetailScreen.routeName: (context) => ProductDetailScreen(),
         ProductAddScreen.routeName: (context) => ProductAddScreen(),
         AuthScreen.routeName: (context) => AuthScreen(),
+        ProductContactForm.routeName: (context) => ProductContactForm(null),
       },
     );
   }

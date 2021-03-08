@@ -4,7 +4,7 @@ import 'package:stacked/stacked.dart';
 
 import '../screens/auth_screen.dart';
 import '../screens/home_screen.dart';
-import '../theming/custom_colors.dart';
+import '../theming/const_values.dart';
 import '../viewmodels/product_form_model.dart';
 import 'ad_categories.dart';
 
@@ -25,6 +25,9 @@ class ProductForm extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      SizedBox(
+                        height: ConstValues.divPadding,
+                      ),
                       model.isFormValid
                           ? SizedBox.shrink()
                           : Text(
@@ -33,7 +36,7 @@ class ProductForm extends StatelessWidget {
                                   .textTheme
                                   .bodyText1
                                   .copyWith(
-                                    color: CustomColors.errorColor,
+                                    color: ConstValues.errorColor,
                                   ),
                             ),
                       TextFormField(
@@ -64,6 +67,9 @@ class ProductForm extends StatelessWidget {
                         },
                         onSaved: (val) => model.title = val,
                       ),
+                      SizedBox(
+                        height: ConstValues.divPadding,
+                      ),
                       TextFormField(
                         maxLines: 5,
                         onSaved: (val) => model.description = val,
@@ -76,6 +82,9 @@ class ProductForm extends StatelessWidget {
                             ]
                           }
                         ]),
+                      ),
+                      SizedBox(
+                        height: ConstValues.divPadding,
                       ),
                       TextFormField(
                         onSaved: (val) => model.virtualPrice = val,
@@ -105,6 +114,9 @@ class ProductForm extends StatelessWidget {
                           }
                         ]),
                       ),
+                      SizedBox(
+                        height: ConstValues.divPadding,
+                      ),
                       if (model.showPostalCodeField)
                         TextFormField(
                             decoration: InputDecoration(
@@ -122,12 +134,18 @@ class ProductForm extends StatelessWidget {
                                     ]
                                   }
                                 ])),
+                      SizedBox(
+                        height: ConstValues.divPadding,
+                      ),
                       DropdownButtonFormField(
                         items: model.getAgeItems(),
                         onChanged: (val) => model.ageCategory = val,
                         decoration: InputDecoration(
                           labelText: 'Voor welke leeftijdscategorie?',
                         ),
+                      ),
+                      SizedBox(
+                        height: ConstValues.divPadding,
                       ),
                       AdCategories(
                         model.setMainCategory,
@@ -136,10 +154,16 @@ class ProductForm extends StatelessWidget {
                         existingMainCat: model.mainCategory,
                         existingSubCat: model.subCategory,
                       ),
+                      SizedBox(
+                        height: ConstValues.divPadding,
+                      ),
                       TextButton.icon(
                         icon: Icon(Icons.camera),
                         label: Text('Maak of kies een foto'),
                         onPressed: model.pickImage,
+                      ),
+                      SizedBox(
+                        height: ConstValues.divPadding,
                       ),
                       if (model.images != null && model.images.length > 0)
                         GridView.count(
@@ -159,7 +183,9 @@ class ProductForm extends StatelessWidget {
                             );
                           }),
                         ),
-                      SizedBox(height: 20),
+                      SizedBox(
+                        height: ConstValues.divPadding,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -178,7 +204,7 @@ class ProductForm extends StatelessWidget {
                                         child: Text(
                                           'OK',
                                           style: TextStyle(
-                                              color: CustomColors.accentColor),
+                                              color: ConstValues.accentColor),
                                         ),
                                         onPressed: () => Navigator.of(context)
                                             .pushReplacementNamed(
@@ -196,7 +222,7 @@ class ProductForm extends StatelessWidget {
                                         child: Text(
                                           'OK',
                                           style: TextStyle(
-                                              color: CustomColors.accentColor),
+                                              color: ConstValues.accentColor),
                                         ),
                                         onPressed: () =>
                                             Navigator.of(context).pop(),
@@ -225,7 +251,7 @@ class ProductForm extends StatelessWidget {
                   child: Text(
                     'OK',
                     style: TextStyle(
-                      color: CustomColors.accentColor,
+                      color: ConstValues.accentColor,
                     ),
                   ),
                   onPressed: () => Navigator.of(context)

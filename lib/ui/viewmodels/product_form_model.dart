@@ -11,7 +11,7 @@ import '../../core/services/my_logger.dart';
 import '../../core/services/product_service.dart';
 import '../../core/services/service_locator.dart';
 import '../../core/services/validator_abstract.dart';
-import '../theming/custom_colors.dart';
+import '../theming/const_values.dart';
 
 class ProductFormModel extends BaseViewModel {
   final Auth _auth = locator<Auth>();
@@ -74,7 +74,7 @@ class ProductFormModel extends BaseViewModel {
           maxImages: 5,
           enableCamera: true,
           cupertinoOptions: CupertinoOptions(
-            backgroundColor: CustomColors.appColor.toString(),
+            backgroundColor: ConstValues.appColor.toString(),
           ),
           materialOptions: MaterialOptions());
       _images = resultList;
