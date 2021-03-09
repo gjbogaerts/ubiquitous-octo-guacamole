@@ -3,7 +3,7 @@ import 'package:stacked/stacked.dart';
 
 import '../theming/const_values.dart';
 import '../viewmodels/product_detail_model.dart';
-import 'product_contact_form.dart';
+import 'product_contact_form_screen.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   static const routeName = '/product-detail';
@@ -89,7 +89,7 @@ class ProductDetailScreen extends StatelessWidget {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      ProductContactForm(model.product),
+                                      ProductContactFormScreen(model.product),
                                 ),
                               );
                             }

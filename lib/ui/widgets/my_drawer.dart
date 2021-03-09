@@ -17,35 +17,43 @@ class MyDrawer extends StatelessWidget {
     }
 
     return Drawer(
-      child: Column(
-        children: [
-          DrawerHeader(
-            child: Text(_welcome()),
-          ),
-          if (!_auth.hasAuth)
-            ListTile(
-              leading: Icon(Icons.supervised_user_circle),
-              title: Text('Inloggen of registreren'),
-              onTap: () => Navigator.of(context)
-                  .pushReplacementNamed(AuthScreen.routeName),
+      child: SingleChildScrollView(
+        child: SafeArea(
+            child: Column(
+          children: [
+            DrawerHeader(
+              child: Text(_welcome()),
             ),
-          ListTile(
-            leading: Icon(Icons.home),
-            title: Text('Beginscherm'),
-            onTap: () => Navigator.of(context)
-                .pushReplacementNamed(HomeScreen.routeName),
-          ),
-          if (_auth.hasAuth)
+            if (!_auth.hasAuth)
+              ListTile(
+                leading: Icon(Icons.supervised_user_circle),
+                title: Text('Inloggen of registreren'),
+                onTap: () => Navigator.of(context)
+                    .pushReplacementNamed(AuthScreen.routeName),
+              ),
             ListTile(
-              leading: Icon(Icons.supervised_user_circle_outlined),
-              title: Text('Uitloggen'),
-              onTap: () {
-                _auth.logout();
-                Navigator.of(context)
-                    .pushReplacementNamed(HomeScreen.routeName);
-              },
+              leading: Icon(Icons.home),
+              title: Text('Beginscherm'),
+              onTap: () => Navigator.of(context)
+                  .pushReplacementNamed(HomeScreen.routeName),
+            ),
+            if (_auth.hasAuth)
+              ListTile(
+                leading: Icon(Icons.supervised_user_circle_outlined),
+                title: Text('Uitloggen'),
+                onTap: () {
+                  _auth.logout();
+                  Navigator.of(context)
+                      .pushReplacementNamed(HomeScreen.routeName);
+                },
+              ),
+            ListTile(
+              leading: Icon(Icons.info),
+              title: Text('Over Roylen'),
+              onTap: () => {},
             )
-        ],
+          ],
+        )),
       ),
     );
   }

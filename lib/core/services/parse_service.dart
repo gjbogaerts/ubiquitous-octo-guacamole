@@ -2,6 +2,7 @@ import '../../keys/api.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 import '../models/product.dart';
 import '../models/user.dart';
+import '../models/message.dart';
 
 Future<void> initService() async {
   await Parse().initialize(
@@ -16,6 +17,7 @@ Future<void> initService() async {
         User(username, password, emailAddress),
     registeredSubClassMap: <String, ParseObjectConstructor>{
       'Product': () => Product(),
+      'Message': () => Message(),
     },
   );
 }
